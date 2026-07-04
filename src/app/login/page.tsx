@@ -117,8 +117,8 @@ export default function LoginPage() {
                 type="button"
                 onClick={async () => {
                   try {
-                    const res = await api.client.get('/auth/google/redirect');
-                    if (res.data?.url) window.location.href = res.data.url;
+                    const res = await api.getAuthRedirect('google');
+                    if (res?.url) window.location.href = res.url;
                   } catch (e) {
                     toast.error('حدث خطأ', { description: 'يرجى إعداد مفاتيح Google API في لوحة التحكم' });
                   }

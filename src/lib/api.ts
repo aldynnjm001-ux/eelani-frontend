@@ -139,4 +139,7 @@ export const api = {
     method: 'POST',
     body: JSON.stringify({ prompt }),
   }),
+
+  // Social Auth
+  getAuthRedirect: (provider: string) => request(`/auth/${provider}/redirect`),
 };
