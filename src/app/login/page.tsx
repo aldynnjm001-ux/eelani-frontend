@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { api } from '@/lib/api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from '@/lib/toast';
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -120,7 +121,7 @@ export default function LoginPage() {
                     const res = await api.getAuthRedirect('google');
                     if (res?.url) window.location.href = res.url;
                   } catch (e) {
-                    toast.error('حدث خطأ', { description: 'يرجى إعداد مفاتيح Google API في لوحة التحكم' });
+                    toast.error('حدث خطأ', 'يرجى إعداد مفاتيح Google API في لوحة التحكم');
                   }
                 }}
                 className="btn-secondary" 
