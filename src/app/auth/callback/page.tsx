@@ -17,7 +17,6 @@ export default function AuthCallback() {
         const user = JSON.parse(decodeURIComponent(userStr));
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        api.setToken(token);
         
         toast.success('تم تسجيل الدخول بنجاح');
         router.push('/dashboard');
