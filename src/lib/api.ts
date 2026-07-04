@@ -58,6 +58,7 @@ export const api = {
   logout: () => request('/logout', { method: 'POST' }),
   forgotPassword: (email: string) => request('/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
   profile: () => request('/user'),
+  deleteProfile: () => request('/user', { method: 'DELETE' }),
   updateProfile: (data: FormData | object) => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     const isFormData = data instanceof FormData;
@@ -125,6 +126,8 @@ export const api = {
   getConversation: (id: number) => request(`/chats/${id}`),
   sendChatMessage: (id: number, body: string) => request(`/chats/${id}/messages`, { method: 'POST', body: JSON.stringify({ body }) }),
   startChat: (adId: number, sellerId: number) => request('/chats/start', { method: 'POST', body: JSON.stringify({ ad_id: adId, seller_id: sellerId }) }),
+  getChat: (adId: number, otherId: number) => request(`/messages/${adId}/${otherId}`),
+  sendMessage: (data: any) => request(`/messages/send`, { method: 'POST', body: JSON.stringify(data) }),
   // Notifications
   getNotifications: () => request('/notifications'),
   markNotificationAsRead: (id: string | number) => request(`/notifications/${id}/read`, { method: 'POST' }),

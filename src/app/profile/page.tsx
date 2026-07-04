@@ -231,7 +231,7 @@ export default function ProfilePage() {
                     if (result.isConfirmed) {
                       setSaving(true);
                       try {
-                        await api.client.delete('/user');
+                        await api.deleteProfile();
                         localStorage.removeItem('token');
                         localStorage.removeItem('user');
                         window.location.href = '/';

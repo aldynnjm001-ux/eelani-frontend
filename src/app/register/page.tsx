@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { toast } from '@/lib/toast';
 
 import { Suspense } from 'react';
 
@@ -103,10 +104,10 @@ function RegisterContent() {
             type="button"
             onClick={async () => {
               try {
-                const res = await api.client.get('/auth/google/redirect');
-                if (res.data?.url) window.location.href = res.data.url;
+                const res = await api.getAuthRedirect('google');
+                if (res?.url) window.location.href = res.url;
               } catch (e) {
-                toast.error('حدث خطأ', { description: 'يرجى إعداد مفاتيح Google API في لوحة التحكم' });
+                toast.error('حدث خطأ', 'يرجى إعداد مفاتيح Google API في لوحة التحكم');
               }
             }}
             className="btn-secondary" 
@@ -120,10 +121,10 @@ function RegisterContent() {
             type="button"
             onClick={async () => {
               try {
-                const res = await api.client.get('/auth/facebook/redirect');
-                if (res.data?.url) window.location.href = res.data.url;
+                const res = await api.getAuthRedirect('facebook');
+                if (res?.url) window.location.href = res.url;
               } catch (e) {
-                toast.error('حدث خطأ', { description: 'يرجى إعداد مفاتيح Facebook API في لوحة التحكم' });
+                toast.error('حدث خطأ', 'يرجى إعداد مفاتيح Facebook API في لوحة التحكم');
               }
             }}
             className="btn-secondary" 

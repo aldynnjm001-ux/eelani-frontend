@@ -4,7 +4,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from '@/lib/toast';
 import { api } from '@/lib/api';
 
-export default function AuthCallback() {
+import { Suspense } from 'react';
+
+function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -35,5 +37,18 @@ export default function AuthCallback() {
       <div style={{ fontSize: '48px', animation: 'spin 1s linear infinite' }}>🔄</div>
       <p style={{ marginTop: '20px', fontSize: '18px', color: '#e8e8f0', fontWeight: 600 }}>جاري المصادقة، يرجى الانتظار...</p>
     </div>
+  );
+}
+
+export default function AuthCallback() {
+  return (
+    <Suspense fallback={
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
+        <div style={{ fontSize: '48px', animation: 'spin 1s linear infinite' }}>🔄</div>
+        <p style={{ marginTop: '20px', fontSize: '18px', color: '#e8e8f0', fontWeight: 600 }}>جاري المصادقة، يرجى الانتظار...</p>
+      </div>
+    }>
+      <CallbackContent />
+    </Suspense>
   );
 }

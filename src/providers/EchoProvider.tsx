@@ -9,12 +9,12 @@ if (typeof window !== 'undefined') {
     (window as any).Pusher = Pusher;
 }
 
-const EchoContext = createContext<Echo | null>(null);
+const EchoContext = createContext<any | null>(null);
 
 export const useEcho = () => useContext(EchoContext);
 
 export default function EchoProvider({ children }: { children: React.ReactNode }) {
-    const [echoInstance, setEchoInstance] = useState<Echo | null>(null);
+    const [echoInstance, setEchoInstance] = useState<any | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -24,8 +24,8 @@ export default function EchoProvider({ children }: { children: React.ReactNode }
             broadcaster: 'reverb',
             key: process.env.NEXT_PUBLIC_REVERB_APP_KEY,
             wsHost: process.env.NEXT_PUBLIC_REVERB_HOST,
-            wsPort: process.env.NEXT_PUBLIC_REVERB_PORT ?? 8080,
-            wssPort: process.env.NEXT_PUBLIC_REVERB_PORT ?? 8080,
+            wsPort: process.env.NEXT_PUBLIC_REVERB_PORT ? Number(process.env.NEXT_PUBLIC_REVERB_PORT) : 8080,
+            wssPort: process.env.NEXT_PUBLIC_REVERB_PORT ? Number(process.env.NEXT_PUBLIC_REVERB_PORT) : 8080,
             forceTLS: (process.env.NEXT_PUBLIC_REVERB_SCHEME ?? 'http') === 'https',
             enabledTransports: ['ws', 'wss'],
             authEndpoint: `${process.env.NEXT_PUBLIC_API_URL}/broadcasting/auth`,
